@@ -20,10 +20,10 @@ public class SQLiteFoodLoader implements FoodLoader{
     }
 
     private ResultSet queryAll() throws SQLException {
-        return connection.createStatement().executeQuery(queryAll());
+        return connection.createStatement().executeQuery(queryAll);
     }
 
-    private static final String queryAll = "SELECT * FROM dataset WHERE NAME = SCIENTIFICNAME";
+    private static final String queryAll = "SELECT * FROM dataset WHERE FOODNAME = SCIENTIFICNAME";
     private List<Food> load(ResultSet resultSet) throws SQLException {
         List<Food> list = new ArrayList<>();
         while (resultSet.next()){
@@ -33,10 +33,11 @@ public class SQLiteFoodLoader implements FoodLoader{
 
     private Food foodFrom(ResultSet resultSet) throws SQLException {
         return new Food(
-                resultSet.getString("NAME"),
+                resultSet.getString("FOODNAME"),
                 resultSet.getString("SCIENTIFICNAME"),
                 resultSet.getString("GROUP"),
                 resultSet.getString("SUBGROUP")
         );
+
     }
 }
